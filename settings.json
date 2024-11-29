@@ -2,5 +2,8 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.project.referencedLibraries": [
         "calebe\\lib\\**\\*.jar"
+    ],
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/maven-publish.yml"
     ]
 }
