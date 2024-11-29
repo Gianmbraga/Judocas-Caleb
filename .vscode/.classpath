@@ -21,5 +21,6 @@
 	<classpathentry kind="lib" path="lib/genesis/lib/commons/commons-beanutils-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/genesis/lib/commons/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/genesis/lib/commons/reusable-components-20060810.jar"/>
+	<classpathentry kind="src" path="calebe/src/main/java/org/fpij/jitakyoei"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
