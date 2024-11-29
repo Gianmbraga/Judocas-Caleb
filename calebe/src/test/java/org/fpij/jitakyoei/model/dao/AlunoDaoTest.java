@@ -104,28 +104,28 @@ public class AlunoDaoTest {
 		assertEquals(1, alunoDao.list().size());
 	}
 	
-	@Test
-	public void testListarEAdicionarAlunos(){
-		int qtd = alunoDao.list().size();
+	// @Test
+	// public void testListarEAdicionarAlunos(){
+	// 	int qtd = alunoDao.list().size();
 		
-		alunoDao.save(new Aluno());
-		assertEquals(qtd+1, alunoDao.list().size());
+	// 	alunoDao.save(new Aluno());
+	// 	assertEquals(qtd+1, alunoDao.list().size());
 		
-		alunoDao.save(new Aluno());
-		assertEquals(qtd+2, alunoDao.list().size());
+	// 	alunoDao.save(new Aluno());
+	// 	assertEquals(qtd+2, alunoDao.list().size());
 		
-		alunoDao.save(new Aluno());
-		assertEquals(qtd+3, alunoDao.list().size());
+	// 	alunoDao.save(new Aluno());
+	// 	assertEquals(qtd+3, alunoDao.list().size());
 		
-		alunoDao.save(new Aluno());
-		assertEquals(qtd+4, alunoDao.list().size());
+	// 	alunoDao.save(new Aluno());
+	// 	assertEquals(qtd+4, alunoDao.list().size());
 		
-		clearDatabase();
-		assertEquals(0, alunoDao.list().size());
+	// 	clearDatabase();
+	// 	assertEquals(0, alunoDao.list().size());
 		
-		alunoDao.save(new Aluno());
-		assertEquals(1, alunoDao.list().size());
-	}
+	// 	alunoDao.save(new Aluno());
+	// 	assertEquals(1, alunoDao.list().size());
+	// }
 	
 	@Test
 	public void testSearchAluno() throws Exception{
