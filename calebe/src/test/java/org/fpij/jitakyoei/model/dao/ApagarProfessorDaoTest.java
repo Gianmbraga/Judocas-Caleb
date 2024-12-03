@@ -89,10 +89,4 @@ public class ApagarProfessorDaoTest {
 		assertEquals(0, professorDao.list().size());
 	}
 	
-	// @AfterClass
-	// public static void closeDatabase(){
-	// 	clearDatabase();
-	// 	DatabaseManager.close();
-	// }
-	
 }
