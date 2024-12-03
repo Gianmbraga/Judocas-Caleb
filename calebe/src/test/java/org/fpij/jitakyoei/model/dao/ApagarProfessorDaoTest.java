@@ -84,7 +84,6 @@ public class ApagarProfessorDaoTest {
 	
 	@Test
 	public void testApagarProfessor(){
-		clearDatabase();
 
 		assertEquals(0, professorDao.list().size());
 
