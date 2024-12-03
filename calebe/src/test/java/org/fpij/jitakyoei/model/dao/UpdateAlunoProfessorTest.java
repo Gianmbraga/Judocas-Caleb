@@ -15,9 +15,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ApagarEntidadeDaoTest {
+public class UpdateAlunoProfessorTest {
 	
-	private static DAO<Entidade> entidadeDao;
+	private static DAO<Professor> professorDao;
+
 
 	private static Aluno aluno;
 	private static Entidade entidade;
@@ -64,35 +65,38 @@ public class ApagarEntidadeDaoTest {
 		aluno.setProfessor(professor);
 		aluno.setEntidade(entidade);
 		
-		entidadeDao = new DAOImpl<Entidade>(Entidade.class);
+		professorDao = new DAOImpl<Professor>(Professor.class);
 	}
 
 	public static void clearDatabase(){
-		List<Entidade> allE = entidadeDao.list();
-		for (Entidade each : allE) {
-			entidadeDao.delete(each);
+		
+		List<Professor> allP = professorDao.list();
+		for (Professor each : allP) {
+			professorDao.delete(each);
 		}
-		assertEquals(0, entidadeDao.list().size());
+		assertEquals(0, professorDao.list().size());
 	}
 	
 	@Test
-	public void testApagarEntidade(){
+	public void testUpdateAluno() throws Exception {
 		clearDatabase();
-		assertEquals(0, entidadeDao.list().size());
 
-		entidadeDao.save(entidade);
-		assertEquals("Academia 1", entidadeDao.list().get(0).getNome());
-		
-		assertEquals(1, entidadeDao.list().size());
-		entidadeDao.delete(entidade);
+		Professor testProf = new Professor();
 
-		assertEquals(0, entidadeDao.list().size());
-	}
-	
-	@AfterClass
-	public static void closeDatabase(){
-		clearDatabase();
-		DatabaseManager.close();
+		Filiado profFiliado = new Filiado();
+		profFiliado.setNome("Caio");
+		profFiliado.setCpf("123.456.789-00");
+		profFiliado.setDataNascimento(new Date());
+		profFiliado.setDataCadastro(new Date());
+		profFiliado.setId(3332L);
+		profFiliado.setEndereco(endereco);
+
+		testProf.setFiliado(profFiliado);
+
+		professorDao.save(testProf);
+		assertEquals(1, professorDao.list().size());
+		assertEquals("123.456.789-00", professorDao.list().get(0).getFiliado().getCpf());
+		assertEquals("Caio", professorDao.list().get(0).getFiliado().getNome());
 	}
 	
 }
