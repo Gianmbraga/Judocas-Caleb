@@ -15,9 +15,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ApagarAlunoDaoTest {
+public class ApagarEntidadeDaoTest {
 	
-	private static DAO<Aluno> alunoDao;
+	private static DAO<Entidade> entidadeDao;
 
 	private static Aluno aluno;
 	private static Entidade entidade;
@@ -64,34 +64,35 @@ public class ApagarAlunoDaoTest {
 		aluno.setProfessor(professor);
 		aluno.setEntidade(entidade);
 		
-		alunoDao = new DAOImpl<Aluno>(Aluno.class);
+		entidadeDao = new DAOImpl<Entidade>(Entidade.class);
 	}
 
 	public static void clearDatabase(){
-		List<Aluno> allA = alunoDao.list();
-		for (Aluno each : allA) {
-			alunoDao.delete(each);
+		List<Entidade> allE = entidadeDao.list();
+		for (Entidade each : allE) {
+			entidadeDao.delete(each);
 		}
-		assertEquals(0, alunoDao.list().size());
-
+		assertEquals(0, entidadeDao.list().size());
 	}
 	
 	@Test
-	public void testApagarAluno(){
+	public void testApagarEntidade(){
 		clearDatabase();
-		assertEquals(0, alunoDao.list().size());
+		assertEquals(0, entidadeDao.list().size());
 
-		alunoDao.save(aluno);
-		assertEquals(1, alunoDao.list().size());
-		alunoDao.delete(aluno);
+		entidadeDao.save(entidade);
+		assertEquals("Academia 1", entidadeDao.list().get(0).getNome());
+		
+		assertEquals(1, entidadeDao.list().size());
+		entidadeDao.delete(entidade);
 
-		assertEquals(0, alunoDao.list().size());
+		assertEquals(0, entidadeDao.list().size());
 	}
-	// 
-	// @AfterClass
-	// public static void closeDatabase(){
-	// 	clearDatabase();
-	// 	DatabaseManager.close();
-	// }
+	
+	@AfterClass
+	public static void closeDatabase(){
+		clearDatabase();
+		DatabaseManager.close();
+	}
 	
 }
