@@ -16,7 +16,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ApagarProfessorDaoTest {
-	
 	private static DAO<Professor> professorDao;
 
 	private static Aluno aluno;
