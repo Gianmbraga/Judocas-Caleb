@@ -15,9 +15,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class AlunoDaoTest {
+public class ApagarAlunoDaoTest {
 	
 	private static DAO<Aluno> alunoDao;
+
 	private static Aluno aluno;
 	private static Entidade entidade;
 	private static Endereco endereco;
@@ -67,82 +68,24 @@ public class AlunoDaoTest {
 	}
 
 	public static void clearDatabase(){
-		List<Aluno> all = alunoDao.list();
-		for (Aluno each : all) {
+		List<Aluno> allA = alunoDao.list();
+		for (Aluno each : allA) {
 			alunoDao.delete(each);
 		}
 		assertEquals(0, alunoDao.list().size());
-	}
-	
-	
-	@Test
-	public void  testSalvarAlunoComAssociassoes() throws Exception{
-		clearDatabase();
-		
-		alunoDao.save(aluno);
-		assertEquals("036.464.453-27", alunoDao.get(aluno).getFiliado().getCpf());
-		assertEquals("Aécio", alunoDao.get(aluno).getFiliado().getNome());
-		assertEquals("Professor", alunoDao.get(aluno).getProfessor().getFiliado().getNome());
-		assertEquals("Dirceu", alunoDao.get(aluno).getProfessor().getFiliado().getEndereco().getBairro());
+
 	}
 	
 	@Test
-	public void updateAluno() throws Exception{
+	public void testApagarAluno(){
 		clearDatabase();
 		assertEquals(0, alunoDao.list().size());
-		
+
 		alunoDao.save(aluno);
 		assertEquals(1, alunoDao.list().size());
-		assertEquals("Aécio", aluno.getFiliado().getNome());
-		
-		Aluno a1 = alunoDao.get(aluno);
-		a1.getFiliado().setNome("TesteUpdate");
-		alunoDao.save(a1);
-		
-		Aluno a2 = alunoDao.get(a1);
-		assertEquals("TesteUpdate", a2.getFiliado().getNome());
-		assertEquals(1, alunoDao.list().size());
-	}
-	
-	// @Test
-	// public void testListarEAdicionarAlunos(){
-	// 	int qtd = alunoDao.list().size();
-		
-	// 	alunoDao.save(new Aluno());
-	// 	assertEquals(qtd+1, alunoDao.list().size());
-		
-	// 	alunoDao.save(new Aluno());
-	// 	assertEquals(qtd+2, alunoDao.list().size());
-		
-	// 	alunoDao.save(new Aluno());
-	// 	assertEquals(qtd+3, alunoDao.list().size());
-		
-	// 	alunoDao.save(new Aluno());
-	// 	assertEquals(qtd+4, alunoDao.list().size());
-		
-	// 	clearDatabase();
-	// 	assertEquals(0, alunoDao.list().size());
-		
-	// 	alunoDao.save(new Aluno());
-	// 	assertEquals(1, alunoDao.list().size());
-	// }
-	
-	@Test
-	public void testSearchAluno() throws Exception{
-		clearDatabase();
-		alunoDao.save(aluno);
-		
-		Filiado f = new Filiado();
-		f.setNome("Aécio");
-		Aluno a = new Aluno();
-		a.setFiliado(f);
-		
-		List<Aluno> result = alunoDao.search(a);
-		assertEquals(1, result.size());
-		assertEquals("036.464.453-27", result.get(0).getFiliado().getCpf());
-		
-		clearDatabase();
-		assertEquals(0, alunoDao.search(a).size());
+		alunoDao.delete(aluno);
+
+		assertEquals(0, alunoDao.list().size());
 	}
 	
 	@AfterClass
