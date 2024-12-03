@@ -87,11 +87,11 @@ public class ApagarAlunoDaoTest {
 
 		assertEquals(0, alunoDao.list().size());
 	}
-	
-	@AfterClass
-	public static void closeDatabase(){
-		clearDatabase();
-		DatabaseManager.close();
-	}
+	// 
+	// @AfterClass
+	// public static void closeDatabase(){
+	// 	clearDatabase();
+	// 	DatabaseManager.close();
+	// }
 	
 }
