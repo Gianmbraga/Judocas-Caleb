@@ -1,35 +1,39 @@
-package org.fpij.jitakyoei.model;
+package org.fpij.jitakyoei.model.dao;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
+import java.util.List;
 
 import org.fpij.jitakyoei.model.beans.Aluno;
 import org.fpij.jitakyoei.model.beans.Endereco;
 import org.fpij.jitakyoei.model.beans.Entidade;
 import org.fpij.jitakyoei.model.beans.Filiado;
 import org.fpij.jitakyoei.model.beans.Professor;
-import org.fpij.jitakyoei.model.beans.Rg;
 import org.fpij.jitakyoei.util.DatabaseManager;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class ModelIntegrationTests {
-//	private static DAO<Aluno> alunoDao;
+public class ApagarProfessorDaoTest {
+	private static DAO<Professor> professorDao;
+
 	private static Aluno aluno;
 	private static Entidade entidade;
 	private static Endereco endereco;
-	private static Filiado filiadoAluno;
+	private static Filiado f1;
 	private static Filiado filiadoProf;
 	private static Professor professor;
 	
 	@BeforeClass
 	public static void setUp(){
 		DatabaseManager.setEnviroment(DatabaseManager.TEST);
-		filiadoAluno = new Filiado();
-		filiadoAluno.setNome("Aécio");
-		filiadoAluno.setCpf("036.464.453-27");
-		filiadoAluno.setDataNascimento(new Date());
-		filiadoAluno.setDataCadastro(new Date());
-		filiadoAluno.setId(1332L);
-		filiadoAluno.setRg(new Rg("5026762-0", "SSP-PI"));
+		f1 = new Filiado();
+		f1.setNome("Aécio");
+		f1.setCpf("036.464.453-27");
+		f1.setDataNascimento(new Date());
+		f1.setDataCadastro(new Date());
+		f1.setId(1332L);
 		
 		endereco = new Endereco();
 		endereco.setBairro("Dirceu");
@@ -55,11 +59,34 @@ public class ModelIntegrationTests {
 		entidade.setTelefone1("(086)1234-5432");
 		
 		aluno = new Aluno();
-		aluno.setFiliado(filiadoAluno);
+		aluno.setFiliado(f1);
 		aluno.setProfessor(professor);
 		aluno.setEntidade(entidade);
+
+		professorDao = new DAOImpl<Professor>(Professor.class);
+	}
+
+	public static void clearDatabase(){
 		
-//		alunoDao = new DAOImpl<Aluno>(Aluno.class);
+		List<Professor> allP = professorDao.list();
+		for (Professor each : allP) {
+			professorDao.delete(each);
+		}
+		assertEquals(0, professorDao.list().size());
+	}
+	
+	@Test
+	public void testApagarProfessor(){
+		clearDatabase();
+
+		assertEquals(0, professorDao.list().size());
+
+		assertEquals("036.464.453-27", professor.getFiliado().getCpf());
+		professorDao.save(professor);
+		assertEquals(1, professorDao.list().size());
+		professorDao.delete(professor);
+
+		assertEquals(0, professorDao.list().size());
 	}
 	
 }
