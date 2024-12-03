@@ -67,6 +67,7 @@ public class ApagarProfessorDaoTest {
 	}
 
 	public static void clearDatabase(){
+		
 		List<Professor> allP = professorDao.list();
 		for (Professor each : allP) {
 			professorDao.delete(each);
@@ -76,6 +77,7 @@ public class ApagarProfessorDaoTest {
 	
 	@Test
 	public void testApagarProfessor(){
+		clearDatabase();
 
 		assertEquals(0, professorDao.list().size());
 
@@ -87,10 +89,10 @@ public class ApagarProfessorDaoTest {
 		assertEquals(0, professorDao.list().size());
 	}
 	
-	@AfterClass
-	public static void closeDatabase(){
-		clearDatabase();
-		DatabaseManager.close();
-	}
+	// @AfterClass
+	// public static void closeDatabase(){
+	// 	clearDatabase();
+	// 	DatabaseManager.close();
+	// }
 	
 }
