@@ -15,8 +15,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ApagarProfessorDaoTest {
-	private static DAO<Professor> professorDao;
+public class ApagarAlunoDaoTest {
+	
 	private static DAO<Aluno> alunoDao;
 
 	private static Aluno aluno;
@@ -63,8 +63,7 @@ public class ApagarProfessorDaoTest {
 		aluno.setFiliado(f1);
 		aluno.setProfessor(professor);
 		aluno.setEntidade(entidade);
-
-		professorDao = new DAOImpl<Professor>(Professor.class);
+		
 		alunoDao = new DAOImpl<Aluno>(Aluno.class);
 	}
 
@@ -75,25 +74,19 @@ public class ApagarProfessorDaoTest {
 		}
 		assertEquals(0, alunoDao.list().size());
 
-		List<Professor> allP = professorDao.list();
-		for (Professor each : allP) {
-			professorDao.delete(each);
-		}
-		assertEquals(0, professorDao.list().size());
 	}
 	
 	@Test
-	public void testApagarProfessor(){
+	public void testApagarAluno(){
 		clearDatabase();
+		
+		assertEquals(0, alunoDao.list().size());
 
-		assertEquals(0, professorDao.list().size());
+		alunoDao.save(aluno);
+		assertEquals(1, alunoDao.list().size());
+		alunoDao.delete(aluno);
 
-		assertEquals("036.464.453-27", professor.getFiliado().getCpf());
-		professorDao.save(professor);
-		assertEquals(1, professorDao.list().size());
-		professorDao.delete(professor);
-
-		assertEquals(0, professorDao.list().size());
+		assertEquals(0, alunoDao.list().size());
 	}
 	
 	@AfterClass
